@@ -1,6 +1,5 @@
 import { GetStaticProps } from 'next'
 import { useState } from 'react'
-import { dehydrate, QueryClient, useQuery } from 'react-query'
 import { Loading } from '../../components/loading'
 import { getCategories } from '../api/categories'
 import { useCategories } from './hooks/useCategories'
@@ -26,9 +25,11 @@ export default function Categories({ categories }: CategoriesProps) {
 
   const [page, setPage] = useState(1)
 
-  const { data, isLoading, isFetching, error } = useCategories(page, {
+  const { data, isLoading } = useCategories(page, {
     initialData: categories,
   })
+
+  console.log('data', data)
 
   if (isLoading)
     return (
@@ -41,7 +42,7 @@ export default function Categories({ categories }: CategoriesProps) {
     <div className='py-4 px-2 h-home w-full box-border overflow-y-scroll no-scrollbar'>
       <section className='text-gray-50 h-full'>
         <div className='grid grid-cols-4 w-full'>
-          {data?.items.map((item) => (
+          {data.items.map((item: any) => (
             <div
               className='relative flex flex-grow items-end rounded-full mx-2 my-2 '
               key={item.id}
@@ -67,9 +68,12 @@ export default function Categories({ categories }: CategoriesProps) {
 export const getStaticProps: GetStaticProps = async () => {
   const { categories } = await getCategories()
 
+  const total = categories.total
+
   return {
     props: {
       categories,
     },
+    revalidate: 60 * 60 * 24, // 24 hours
   }
 }

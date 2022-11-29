@@ -1,24 +1,13 @@
 import axios from 'axios'
 import { useQuery, UseQueryOptions } from 'react-query'
-import { api } from '../../../services/api'
+import { api } from '../services/api'
+import { RecommendationsProps } from '../interfaces/index'
 
-type CategoriesType = {
-  categories: {
-    items: {
-      href: string
-      icons: {
-        url: string
-      }[]
-      id: string
-      name: string
-    }[]
-  }
-}
 type TokenResponseType = {
   access_token: string
 }
 
-export async function getCategories() {
+export async function getRecommendations() {
   const grantType = {
     grant_type: 'client_credentials',
   }
@@ -36,10 +25,7 @@ export async function getCategories() {
     },
   )
 
-  const { data: categories } = await api.get<CategoriesType>(`/browse/categories?limit=50`, {
-    params: {
-      limit: 50,
-    },
+  const { data: tracks } = await api.get(`/recommendations`, {
     headers: {
       Accept: 'applications/json',
       'Content-Type': 'applications/json',
@@ -47,11 +33,13 @@ export async function getCategories() {
     },
   })
 
-  return categories
+  console.log('trackss', tracks)
+
+  return tracks
 }
 
-export function useCategories(page: number, options: UseQueryOptions) {
-  return useQuery<any>(['categories', page], () => getCategories(), {
+export function useRecommendations(page: number, options: UseQueryOptions) {
+  return useQuery<any>(['recommendations', page], () => getRecommendations(), {
     staleTime: 1000 * 60 * 10,
     ...options,
   })

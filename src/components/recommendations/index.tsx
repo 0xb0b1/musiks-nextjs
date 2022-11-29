@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { Heart, Play } from 'phosphor-react'
 import { RecommendationsProps } from '../../interfaces'
 
-export const Recommendations = ({ tracks }: RecommendationsProps) => {
+export const Recommendations = ({ tracks }: any) => {
+  console.log('tracks', tracks)
   return (
     <section className='pb-8'>
       <h2 className='mt-8 mb-2 font-semibold'>Recomended playlists</h2>

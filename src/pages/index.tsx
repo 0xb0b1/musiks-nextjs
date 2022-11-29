@@ -3,13 +3,18 @@ import Link from 'next/link'
 import { Play } from 'phosphor-react'
 import { Recommendations } from '../components/recommendations'
 import { GetStaticProps } from 'next'
-import { dehydrate, QueryClient, useQuery } from 'react-query'
 import { getRecommendations } from './api/recommendations'
 import { Loading } from '../components/loading'
+import { useRecommendations } from '../hooks/useRecommendations'
+import { useState } from 'react'
+import { RecommendationsProps } from '../interfaces'
 
-function Home() {
-  const { data, isLoading } = useQuery(['recommendations', 20], getRecommendations)
-  console.log('data', data)
+export default function Home({ tracks }: any) {
+  const [page, setPage] = useState(1)
+
+  const { data, isLoading } = useRecommendations(page, {
+    initialData: tracks,
+  })
 
   return (
     <div className='w-full px-4 h-home overflow-y-auto no-scrollbar text-gray-50'>
@@ -72,17 +77,11 @@ function Home() {
   )
 }
 
-export default Home
-
 export const getStaticProps: GetStaticProps = async () => {
-  const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery(['recommendations', 20], () => getRecommendations())
+  const tracks = await getRecommendations()
 
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    props: { tracks },
     revalidate: 60 * 60, // 1 hour
   }
 }
