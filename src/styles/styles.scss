@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lexend', sans-serif;
+  max-width: 100vw;
+}
+
+
+/* table{ */
+/*   font-family: 'Lexend', sans-serif; */
+/*   opacity: 0.8; */
+/* } */
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+}
+
+
+.h-home {
+  height: calc(100vh - 4rem);
+}
+
+.has-tooltip:hover .tooltip {
+  visibility: visible;
+  z-index: 100;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
