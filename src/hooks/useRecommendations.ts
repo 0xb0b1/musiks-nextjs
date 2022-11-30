@@ -25,15 +25,13 @@ export async function getRecommendations() {
     },
   )
 
-  const { data: tracks } = await api.get(`/recommendations`, {
+  const { data: tracks } = await api.get<RecommendationsProps>(`/recommendations`, {
     headers: {
       Accept: 'applications/json',
       'Content-Type': 'applications/json',
       Authorization: 'Bearer ' + tokenResponse.access_token,
     },
   })
-
-  console.log('trackss', tracks)
 
   return tracks
 }

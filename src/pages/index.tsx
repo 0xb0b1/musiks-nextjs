@@ -9,7 +9,7 @@ import { useRecommendations } from '../hooks/useRecommendations'
 import { useState } from 'react'
 import { RecommendationsProps } from '../interfaces'
 
-export default function Home({ tracks }: any) {
+export default function Home({ tracks }: RecommendationsProps) {
   const [page, setPage] = useState(1)
 
   const { data, isLoading } = useRecommendations(page, {

@@ -29,8 +29,6 @@ export default function Categories({ categories }: CategoriesProps) {
     initialData: categories,
   })
 
-  console.log('data', data)
-
   if (isLoading)
     return (
       <div className='w-full'>

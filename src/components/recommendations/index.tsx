@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Heart, Play } from 'phosphor-react'
 import { RecommendationsProps } from '../../interfaces'
 
-export const Recommendations = ({ tracks }: any) => {
+export const Recommendations = ({ tracks }: RecommendationsProps) => {
   console.log('tracks', tracks)
   return (
     <section className='pb-8'>
