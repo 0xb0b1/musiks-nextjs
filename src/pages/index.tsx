@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Play } from 'phosphor-react'
-import { Recommendations } from '../components/recommendations'
+import { Recommendations as RecommendationsList } from '../components/recommendations'
 import { GetStaticProps } from 'next'
 import { getRecommendations } from './api/recommendations'
 import { Loading } from '../components/loading'
@@ -72,7 +72,7 @@ export default function Home({ tracks }: RecommendationsProps) {
         </ul>
       </section>
 
-      {isLoading ? <Loading /> : <Recommendations tracks={data} />}
+      {isLoading ? <Loading /> : <RecommendationsList tracks={data} />}
     </div>
   )
 }

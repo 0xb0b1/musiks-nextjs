@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { GetStaticProps } from 'next'
 import { useState } from 'react'
 import { Loading } from '../../components/loading'
-import { getCategories } from '../api/categories'
-import { useCategories } from './hooks/useCategories'
+import { getCategories, useCategories } from './hooks/useCategories'
 
 interface CategoriesProps {
   categories: {
@@ -65,8 +65,6 @@ export default function Categories({ categories }: CategoriesProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { categories } = await getCategories()
-
-  const total = categories.total
 
   return {
     props: {
