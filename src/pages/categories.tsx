@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { GetStaticProps } from 'next'
 import { useState } from 'react'
-import { Loading } from '../../components/loading'
-import { getCategories, useCategories } from './hooks/useCategories'
+import { Loading } from '../components/loading'
+import { getCategories, useCategories } from '../hooks/useCategories'
 
 interface CategoriesProps {
   categories: {
@@ -34,7 +34,7 @@ export default function Categories({ categories }: CategoriesProps) {
   if (isLoading)
     return (
       <div className='w-full'>
-        <Loading />{' '}
+        <Loading />
       </div>
     )
 
@@ -66,12 +66,10 @@ export default function Categories({ categories }: CategoriesProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { categories } = await getCategories()
+  const categories = await getCategories()
 
   return {
-    props: {
-      categories,
-    },
-    revalidate: 60 * 60 * 24, // 24 hours
+    props: { categories },
+    revalidate: 60 * 60, // 24 hours
   }
 }

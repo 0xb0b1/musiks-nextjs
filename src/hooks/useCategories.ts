@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery, UseQueryOptions } from 'react-query'
-import { api } from '../../../services/api'
+import { api } from '../services/api'
 
 type CategoriesType = {
   categories: {
@@ -19,13 +19,9 @@ type TokenResponseType = {
 }
 
 export async function getCategories() {
-  const grantType = {
-    grant_type: 'client_credentials',
-  }
-
   const tokenResponse: TokenResponseType = await axios.post(
     'https://accounts.spotify.com/api/token',
-    grantType,
+    { grant_type: 'client_credentials' },
     {
       headers: {
         Accept: 'application/json',
@@ -36,10 +32,7 @@ export async function getCategories() {
     },
   )
 
-  const { data: categories } = await api.get<CategoriesType>(`/browse/categories?limit=50`, {
-    params: {
-      limit: 50,
-    },
+  const { data: categories } = await api.get(`/browse/categories`, {
     headers: {
       Accept: 'applications/json',
       'Content-Type': 'applications/json',
