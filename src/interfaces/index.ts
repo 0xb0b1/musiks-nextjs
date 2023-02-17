@@ -4,6 +4,7 @@ export interface RecommendationsProps {
     id: string
     href: string
     is_playable: boolean
+    uri: string
     album: {
       id: string
       images: {

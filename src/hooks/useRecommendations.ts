@@ -29,7 +29,7 @@ export async function getRecommendations() {
     headers: {
       Accept: 'applications/json',
       'Content-Type': 'applications/json',
-      Authorization: 'Bearer ' + tokenResponse.access_token,
+      Authorization: `Bearer ${tokenResponse.access_token}`,
     },
   })
 
